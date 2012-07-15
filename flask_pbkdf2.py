@@ -33,8 +33,7 @@ class Pbkdf2(object):
         if not iterations:
             iterations = self.iterations
         hash_val = pbkdf2_hex(password, salt, iterations, hashfunc=self.hashfunc)
-        return '%s$%s$%s$%s' % ('pbkdf2_sha256',iterations, salt, hash_val)
-
+        return '%s$%s$%s$%s' % ('pbkdf2_sha256', iterations, salt, hash_val)
 
     def generate_salt(self, keylen=15):
         return binascii.b2a_hex(os.urandom(keylen))
