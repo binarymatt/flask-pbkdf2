@@ -16,9 +16,15 @@ def safe_str_cmp(a, b):
 
 class Pbkdf2(object):
     hashfunc = hashlib.sha256
+    iterations = 1000
+
     def __init__(self, app=None):
+        if app is not None:
+            self.init_app(app)
+
+    def init_app(self, app):
         self.app = app
-        self.iterations = app.config.get('PBKDF2_ITERATIONS', 1000)
+        self.iterations = self.app.config.get('PBKDF2_ITERATIONS', 1000)
 
     def check_password(self, password, encoded):
         algorithm, iterations, salt, hash_val = encoded.split('$', 3)
